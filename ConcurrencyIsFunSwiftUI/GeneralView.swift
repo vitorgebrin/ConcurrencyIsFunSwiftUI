@@ -10,9 +10,9 @@ import SwiftUI
 struct GeneralView: View {
     var body: some View {
         TabView{
-            ContentView().tabItem { Image(systemName: "camera") }.tag(0)
-            Text("Second View").tabItem { Image(systemName: "person") }.tag(1)
-            Text("Third View").tabItem { Image(systemName: "lightbulb") }.tag(2)
+            ContentView().tabItem { Image(systemName: "leaf.fill") }.tag(0)
+            Text("Second View").tabItem { Image(systemName: "clock") }.tag(1)
+            Text("Third View").tabItem { Image(systemName: "doc.questionmark") }.tag(2)
         }
     }
 }

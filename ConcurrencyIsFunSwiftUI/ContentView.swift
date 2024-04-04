@@ -8,19 +8,34 @@ import SwiftUI
 import PhotosUI
 import Foundation
 
+struct GPTAPIResponse: Codable {
+    let id: String
+    //let object: String
+    //let created: Int
+    //let model: String
+    //let choices: [Choice]
+}
+struct Choice: Codable {
+    let message: Message
+    let index: Int
+    let finish_reason: String
+}
+
+struct Message: Codable {
+    let role: String
+    let content: String
+}
+
 @MainActor class ContentViewModel: ObservableObject{
     //
     // So, why MainActor? This macro was added here due to an issue that happened before adding it. One cannot simply change a Published variable from any thread other then the main Thread. The Main Actor (an already-made globalActor) macro ensures that the code is run on the main Thread, avoiding data races.
-    @Published var plantCommonName:String = ""
-    @Published var plantScientificName:String = ""
-    @Published var plantFamily:String = ""
-    @Published var plantSimilarImagesUrls:[String] = []
+    @Published var myPlant = Plant()
 
-    let plantNetKey:String = "2b10wldC1TVzsYo4ztrx741Kj"
+    let plantNetKey:String = ""
     /*
      let headers = [
          "content-type": "application/json",
-         "X-RapidAPI-Key": "bf0afc85femshc4d4654322dbeb8p1a480ejsn76f7e2939162",
+         "X-RapidAPI-Key": "",
          "X-RapidAPI-Host": "plant-recognizer.p.rapidapi.com"
      ]
     func requestRecognitionBase64(sentImage:UIImage) async throws{
@@ -49,7 +64,7 @@ import Foundation
         
         let boundary = UUID().uuidString
         var postData = Data()
-        let request = NSMutableURLRequest(url: NSURL(string: "https://my-api.plantnet.org/v2/identify/all?include-related-images=false&no-reject=false&lang=en&api-key=" + plantNetKey)! as URL)
+        let request = NSMutableURLRequest(url: NSURL(string: "https://my-api.plantnet.org/v2/identify/all?include-related-images=true&no-reject=false&lang=en&api-key=" + plantNetKey)! as URL)
         request.httpMethod = "POST"
         
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
@@ -62,10 +77,25 @@ import Foundation
         request.httpBody = postData as Data?
         
         do {
-            let (data,response) = try await URLSession.shared.data(for: request as URLRequest)
+            let (data,_) = try await URLSession.shared.data(for: request as URLRequest)
+            
             // since this is a asynchronous function, I need to wait for the result. To do that, we use the keyword await
             //guard let data:Data? = data else {return}
             
+            let plants = try JSONDecoder().decode(PlantJSONModel.self, from:data)
+           await MainActor.run(body: {
+               myPlant.plantCommonName = plants.results[0].species.commonNames[0]
+               myPlant.plantAllCommonNames = plants.results[0].species.commonNames
+               myPlant.plantScientificName = plants.results[0].species.scientificName
+               myPlant.plantScientificNameWithoutAuthor = plants.results[0].species.scientificNameWithoutAuthor
+               myPlant.plantFamily = plants.results[0].species.family.scientificName
+        for image in plants.results[0].images{
+                    myPlant.plantSimilarImagesUrls.append(image.url.m)
+                }
+            })
+            
+            
+            /*
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options:[])
             //print(((responseJSON! as AnyObject)["results"]! as! NSArray)[0])
             if let responseJSON = responseJSON as? AnyObject{
@@ -86,8 +116,45 @@ import Foundation
                     
                 }
                 
-                        }
+                        }*/
         } catch  {
+            print(error.localizedDescription)
+            throw error
+        }
+    }
+    
+    func requestChatGPT() async throws{
+        
+        let apiKey = ""
+        let gptURL = "https://api.openai.com/v1/chat/completions"
+        let prompt=""
+        let request = NSMutableURLRequest(url: NSURL(string: "https://api.openai.com/v1/chat/completions")! as URL)
+        // Creamos una solicitud HTTP POST
+        request.httpMethod = "POST"
+        request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // Definimos el cuerpo de la solicitud como un diccionario y lo convertimos a datos JSON
+        let requestBody: [String: Any] = [
+            "model": "gpt-3.5-turbo",
+            "messages": [
+                ["role": "system", "content": "?"],
+                ["role": "user", "content": prompt]
+            ],
+            "max_tokens": NSNumber(value: 10)
+        ]
+        
+        request.httpBody = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+        do {
+            let (data,_) = try await URLSession.shared.data(for: request as URLRequest)
+//            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+//            if let responseJSON = responseJSON as? [String: Any] {
+//                            print("-----2> responseJSON: \(responseJSON)")
+//                        }
+            let GPTResponse = try JSONDecoder().decode(GPTAPIResponse.self, from:data)
+            print(GPTResponse)
+        } catch  {
+            print(error.localizedDescription)
             throw error
         }
     }
@@ -99,6 +166,8 @@ struct ContentView: View {
     @State private var selectedItem: PhotosPickerItem?
     @State var image: UIImage?
     @State var isLoading:Bool = false
+    @State var showPlantDetailedView:Bool = false
+    @State var myColor:Color?
     
     @StateObject var viewModel:ContentViewModel = ContentViewModel()
     
@@ -106,34 +175,43 @@ struct ContentView: View {
     
    
     var body: some View {
+        
         VStack {
-            PhotosPicker("Select an image", selection: $selectedItem, matching: .images)
+            Button{
+                myColor = myColor == .accentColor ? .gray : .accentColor
+            } label: {
+                Image(systemName: "camera.macro").resizable().frame(width:50,height:50).foregroundColor(.white).padding(15).background(Circle()
+                    .fill(myColor ?? .gray)
+                    .shadow(radius: 5))
+            }
+            
+            Spacer()
+            if isLoading {
+                ProgressView().tint(.accentColor).scaleEffect(2).padding()
+                Spacer()
+            }
+            PhotosPicker("Select an image", selection: $selectedItem, matching: .images).foregroundColor(.white).padding(15).background(RoundedRectangle(cornerRadius: 10)
+                .fill(Color.accentColor)
+                .shadow(radius: 5))
                 .onChange(of: selectedItem) {
                     Task {
+                        try? await viewModel.requestChatGPT()
                         if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
                             image = UIImage(data: data)
                             isLoading = true
                             try await viewModel.requestRecognitionFormFormat(sentImage: image!)
                             isLoading = false
+                            showPlantDetailedView = true
                         }
  
                     }
                 }
-            if isLoading {
-                ProgressView().scaleEffect(2).padding()
-            } else{
-                VStack{
-                    Image(uiImage: image ?? UIImage(systemName: "person")! ).resizable().frame(width:200,height: 200)
-                    VStack(alignment: .leading){
-                        Text("Plant Common Name: " + viewModel.plantCommonName)
-                        Text("Plant Scientific Name: " + viewModel.plantScientificName)
-                        Text("Plant's Family: " + viewModel.plantFamily)
-                    }
-                }.padding()
-            }
+            
             
         }
-        .padding()
+        .padding().sheet(isPresented:$showPlantDetailedView) {
+            PlantDetailedView(plant:viewModel.myPlant,mainImage: Image(uiImage: image!))
+        }
     }
     
     

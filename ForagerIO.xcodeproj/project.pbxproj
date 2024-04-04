@@ -14,10 +14,14 @@
 		6B45CF182BB2CF560013A2A1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B45CF172BB2CF560013A2A1 /* Preview Assets.xcassets */; };
 		6B45CF1F2BB2CFD30013A2A1 /* ConcurrencyHelpFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B45CF1E2BB2CFD30013A2A1 /* ConcurrencyHelpFile.swift */; };
 		6BF7727C2BB87CD500D0BDA2 /* GeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF7727B2BB87CD500D0BDA2 /* GeneralView.swift */; };
+		6BF7727E2BBAB8B000D0BDA2 /* JSONSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF7727D2BBAB8B000D0BDA2 /* JSONSerialization.swift */; };
+		6BF772802BBAB9B000D0BDA2 /* PlantModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF7727F2BBAB9B000D0BDA2 /* PlantModel.swift */; };
+		6BF772822BBB30B000D0BDA2 /* PlantDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF772812BBB30B000D0BDA2 /* PlantDetailedView.swift */; };
+		6BF772842BBD461B00D0BDA2 /* GPTModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF772832BBD461B00D0BDA2 /* GPTModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6B45CF0B2BB2CF550013A2A1 /* ConcurrencyIsFunSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConcurrencyIsFunSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B45CF0B2BB2CF550013A2A1 /* ForagerIO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ForagerIO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B45CF0E2BB2CF550013A2A1 /* ConcurrencyIsFunSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrencyIsFunSwiftUIApp.swift; sourceTree = "<group>"; };
 		6B45CF102BB2CF550013A2A1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6B45CF122BB2CF550013A2A1 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -25,6 +29,10 @@
 		6B45CF172BB2CF560013A2A1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6B45CF1E2BB2CFD30013A2A1 /* ConcurrencyHelpFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrencyHelpFile.swift; sourceTree = "<group>"; };
 		6BF7727B2BB87CD500D0BDA2 /* GeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralView.swift; sourceTree = "<group>"; };
+		6BF7727D2BBAB8B000D0BDA2 /* JSONSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONSerialization.swift; sourceTree = "<group>"; };
+		6BF7727F2BBAB9B000D0BDA2 /* PlantModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantModel.swift; sourceTree = "<group>"; };
+		6BF772812BBB30B000D0BDA2 /* PlantDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDetailedView.swift; sourceTree = "<group>"; };
+		6BF772832BBD461B00D0BDA2 /* GPTModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +57,7 @@
 		6B45CF0C2BB2CF550013A2A1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6B45CF0B2BB2CF550013A2A1 /* ConcurrencyIsFunSwiftUI.app */,
+				6B45CF0B2BB2CF550013A2A1 /* ForagerIO.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,7 +68,11 @@
 				6B45CF0E2BB2CF550013A2A1 /* ConcurrencyIsFunSwiftUIApp.swift */,
 				6B45CF102BB2CF550013A2A1 /* ContentView.swift */,
 				6BF7727B2BB87CD500D0BDA2 /* GeneralView.swift */,
+				6BF7727F2BBAB9B000D0BDA2 /* PlantModel.swift */,
+				6BF772832BBD461B00D0BDA2 /* GPTModel.swift */,
+				6BF772812BBB30B000D0BDA2 /* PlantDetailedView.swift */,
 				6B45CF1E2BB2CFD30013A2A1 /* ConcurrencyHelpFile.swift */,
+				6BF7727D2BBAB8B000D0BDA2 /* JSONSerialization.swift */,
 				6B45CF122BB2CF550013A2A1 /* Item.swift */,
 				6B45CF142BB2CF560013A2A1 /* Assets.xcassets */,
 				6B45CF162BB2CF560013A2A1 /* Preview Content */,
@@ -79,9 +91,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6B45CF0A2BB2CF550013A2A1 /* ConcurrencyIsFunSwiftUI */ = {
+		6B45CF0A2BB2CF550013A2A1 /* ForagerIO */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6B45CF1B2BB2CF560013A2A1 /* Build configuration list for PBXNativeTarget "ConcurrencyIsFunSwiftUI" */;
+			buildConfigurationList = 6B45CF1B2BB2CF560013A2A1 /* Build configuration list for PBXNativeTarget "ForagerIO" */;
 			buildPhases = (
 				6B45CF072BB2CF550013A2A1 /* Sources */,
 				6B45CF082BB2CF550013A2A1 /* Frameworks */,
@@ -91,9 +103,9 @@
 			);
 			dependencies = (
 			);
-			name = ConcurrencyIsFunSwiftUI;
+			name = ForagerIO;
 			productName = ConcurrencyIsFunSwiftUI;
-			productReference = 6B45CF0B2BB2CF550013A2A1 /* ConcurrencyIsFunSwiftUI.app */;
+			productReference = 6B45CF0B2BB2CF550013A2A1 /* ForagerIO.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -111,7 +123,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6B45CF062BB2CF550013A2A1 /* Build configuration list for PBXProject "ConcurrencyIsFunSwiftUI" */;
+			buildConfigurationList = 6B45CF062BB2CF550013A2A1 /* Build configuration list for PBXProject "ForagerIO" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -124,7 +136,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6B45CF0A2BB2CF550013A2A1 /* ConcurrencyIsFunSwiftUI */,
+				6B45CF0A2BB2CF550013A2A1 /* ForagerIO */,
 			);
 		};
 /* End PBXProject section */
@@ -146,11 +158,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BF772822BBB30B000D0BDA2 /* PlantDetailedView.swift in Sources */,
 				6B45CF1F2BB2CFD30013A2A1 /* ConcurrencyHelpFile.swift in Sources */,
 				6B45CF112BB2CF550013A2A1 /* ContentView.swift in Sources */,
+				6BF772802BBAB9B000D0BDA2 /* PlantModel.swift in Sources */,
 				6B45CF132BB2CF550013A2A1 /* Item.swift in Sources */,
 				6BF7727C2BB87CD500D0BDA2 /* GeneralView.swift in Sources */,
+				6BF7727E2BBAB8B000D0BDA2 /* JSONSerialization.swift in Sources */,
 				6B45CF0F2BB2CF550013A2A1 /* ConcurrencyIsFunSwiftUIApp.swift in Sources */,
+				6BF772842BBD461B00D0BDA2 /* GPTModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +303,7 @@
 				DEVELOPMENT_TEAM = 6XT9AC4G36;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ForagerIO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -316,6 +333,7 @@
 				DEVELOPMENT_TEAM = 6XT9AC4G36;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ForagerIO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -337,7 +355,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6B45CF062BB2CF550013A2A1 /* Build configuration list for PBXProject "ConcurrencyIsFunSwiftUI" */ = {
+		6B45CF062BB2CF550013A2A1 /* Build configuration list for PBXProject "ForagerIO" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6B45CF192BB2CF560013A2A1 /* Debug */,
@@ -346,7 +364,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6B45CF1B2BB2CF560013A2A1 /* Build configuration list for PBXNativeTarget "ConcurrencyIsFunSwiftUI" */ = {
+		6B45CF1B2BB2CF560013A2A1 /* Build configuration list for PBXNativeTarget "ForagerIO" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6B45CF1C2BB2CF560013A2A1 /* Debug */,
