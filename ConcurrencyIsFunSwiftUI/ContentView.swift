@@ -125,7 +125,7 @@ struct Message: Codable {
     
     func requestChatGPT() async throws{
         
-        let apiKey = ""
+
         let gptURL = "https://api.openai.com/v1/chat/completions"
         let prompt=""
         let request = NSMutableURLRequest(url: NSURL(string: "https://api.openai.com/v1/chat/completions")! as URL)
